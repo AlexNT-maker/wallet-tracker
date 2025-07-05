@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# VS Code settings (αν δουλεύεις με VS Code)
+.vscode/
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# MacOS hidden files
+.DS_Store
+
+# Windows hidden files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+
+# Jupyter Notebooks checkpoints (αν δουλεύεις και με notebooks)
+.ipynb_checkpoints/
+
+# Git ignored file list
+.gitignore
