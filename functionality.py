@@ -205,13 +205,15 @@ def remove_target():
 
 def total_income():
     """Calculate the total income."""
-    count_the_incomes()
+    total=count_the_incomes()
     print("Total income is: " + str(count_the_incomes()) + "$")
+    return total
 
 def total_outcome():
     """Calculate the total expenses."""
-    count_the_expenses()
+    total=count_the_expenses()
     print("Total expenses are: " + str(count_the_expenses()) + "$")
+    return total
 
 def save_incomes_to_json():
     """Save the incomes to a JSON file."""

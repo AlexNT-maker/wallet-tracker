@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+
+<body class="dashboard-page">
+    <nav class="navbar">
+        <ul>
+            <li> <a href="{{url_for('dashboard')}}">Home</a></li>
+            <li><a href="{{url_for('income_expenses')}}">Income/Expenses</a></li>
+            <li><a href="#">Subscriptions</a></li>
+            <li><a href="#">Financial Goals</a></li>
+            <li><a href="#">Wallet Details</a></li>
+        </ul>
+    </nav>
+    <div class="dashboard-container">
+<h1>Financial Overview</h1>
+{% if message %}
+    <div class="dashboard-message">
+        {{ message }}
+    </div>
+{% endif %}
+
+<img src="{{ url_for('static', filename='/images/pie_chart.png') }}" alt="Pie chart showing the distribution of financial categories such as income, expenses, and savings in a dashboard environment. The chart uses distinct colors for each category and is presented in a clean, organized layout. No text is present in the image. The tone is informative and neutral." class="financial-chart" width="400">
+    </div>
+</body>
+</html>

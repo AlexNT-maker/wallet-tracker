@@ -29,6 +29,8 @@ Desktop.ini
 # Logs
 *.log
 
+# json files
+*.json
 
 # Jupyter Notebooks checkpoints (αν δουλεύεις και με notebooks)
 .ipynb_checkpoints/

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title> Income & Expenses </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+
+    
+
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
+                <li><a href="#">Subscriptions</a></li>
+                <li><a href="#">Financial Goals</a></li>
+                <li><a href="#">Wallet Details</a></li>
+            </ul>
+        </nav>
+
+        <div class="dashboard-container">
+            <h1>Track your finances</h1>
+            <p> Use the form below to add income or expenses </p>
+
+            <body class=" dashboard-page">
+        <div class=" dashboard-header">
+            <h1>Add Income</h1>
+            <form method="POST" action="{{ url_for('add_income') }}">
+                <input type="text" name="amount" placeholder="Enter amount" required>
+                <input type="text" name="description" placeholder="Enter description" required>
+                <button type="submit">Add Income</button>
+            </form>
+
+            <h1>Add Expense</h1> 
+            <form method="POST" action="{{ url_for('add_expense') }}">
+                <input type="text" name="amount" placeholder="Enter amount" required>
+                <input type="text" name="description" placeholder="Enter description" required>
+                <button type="submit">Add Expense</button>
+            </form>
+
+            
+        </div>
+    </body>
+</html>
