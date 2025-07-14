@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+<nav class="navbar">
+    <ul>
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
+        <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
+        <li><a href="#">Financial Goals</a></li>
+        <li><a href="#">Wallet Details</a></li>
+    </ul>
+</nav>
+<div class="dashboard-container">
+    <h1>Your Subscriptions</h1>
+    <p> Here you will be able to manage your subscriptions</p>
+    
+
+<div class="form-section">
+<h2>Add subscription</h2>
+<form method="POST" action="{{ url_for('add_subscriptions') }}">
+    <input type="text" name="amount" placeholder="Enter amount" required>
+    <input type="text" name="description" placeholder="Enter description" required>
+    <button type="submit">Add Subscription</button>
+    {% if message %}
+        <div class="subscription-message">
+            {{ message }}
+        </div>
+    {% endif %}
+    </form>
+</div>
+
+<div class="form-section">
+<h2>Remove subscription</h2>
+<form method="POST" action="{{ url_for('remove_subscription') }}">
+    <input type="text" name="amount" placeholder="Enter amount" required>
+    <input type="text" name="description" placeholder="Enter description" required>
+    <button type="submit">Remove Subscription</button>
+</div>
+
+<div class="form-section">
+    <h2> Active subscriptions</h2>
+    {% if subscriptions %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sub in subscriptions %}
+            <tr>
+                <td>{{sub['Subscription']}} $ </td>
+                <td>{{sub['Description']}}</td>
+                  </tr>
+                  {% endfor %} <!-- Loop through subscriptions -->
+                  </tbody>
+    </table>
+                  {% else %}
+                  <p> No active subscriptions.</p>
+                  {% endif %}
+                  </div> 
+                </div>
+                
+        
+
+</body>
+
+</html>

@@ -11,14 +11,14 @@
 
         </div>
         <nav class="navbar">
-            <ul>
-                <li><a href="{{ url_for('dashboard') }}">Home</a></li>
-                <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
-                <li><a href="#">Subscriptions</a></li>
-                <li><a href="#">Financial Goals</a></li>
-                <li><a href="#">Wallet Details</a></li>
-            </ul>
-        </nav>
+    <ul>
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
+        <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
+        <li><a href="#">Financial Goals</a></li>
+        <li><a href="#">Wallet Details</a></li>
+    </ul>
+</nav>
 
         <div class="dashboard-container">
             <h1>Track your finances</h1>
@@ -31,13 +31,24 @@
                 <input type="text" name="amount" placeholder="Enter amount" required>
                 <input type="text" name="description" placeholder="Enter description" required>
                 <button type="submit">Add Income</button>
+                <button type="submit" formaction="{{ url_for('remove_income') }}" formmethod="POST" name="action" value="remove">Remove</button>
             </form>
 
             <h1>Add Expense</h1> 
             <form method="POST" action="{{ url_for('add_expense') }}">
                 <input type="text" name="amount" placeholder="Enter amount" required>
                 <input type="text" name="description" placeholder="Enter description" required>
-                <button type="submit">Add Expense</button>
+                <button type="submit">Add Expense</button> 
+                <button type="submit" formaction="{{ url_for('remove_expense') }}" formmethod="POST" name="action" value="remove">Remove</button>
+            </form>
+
+            <h1>Add repeating income</h1>
+            <form method="POST" action="{{ url_for('add_repeating_income') }}">
+                <input type="text" name="amount" placeholder="Enter amount" required>
+                <input type="text" name="description" placeholder="Enter description" required>
+                <input type="number" name="day" placeholder="Day of the month(1-31)" min="1" max="31"required>
+                <button type="submit">Add repeating income</button>
+                <button type="submit" formaction="{{ url_for('remove_repeating_income') }}" formmethod="POST" name="action" value="remove">Remove</button>
             </form>
 
             

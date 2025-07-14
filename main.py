@@ -69,6 +69,87 @@ def add_expense():
     functionality.save_expenses_to_json()
     return redirect(url_for('income_expenses'))
 
+@app.route('/add_repeating_income', methods=['POST'])
+def add_repeating_income():
+    """Add a repeating income entry."""
+    amount= request.form['amount']
+    description= request.form['description']
+    day= request.form['day']
+
+    if not amount.isdigit() or not day.isdigit():
+        return "Invalid input. Amount and day must be numeric.", 400
+    
+    functionality.save_to_repeating_dict(amount, description, int(day))
+    return redirect(url_for('income_expenses'))
+
+@app.route('/remove_repeating_income', methods=['POST'])
+def remove_repeating_income():
+    """Remove a repeating income entry."""
+    amount = request.form['amount']
+    description = request.form['description']
+    day = request.form['day']
+
+    if not amount.isdigit() or not day.isdigit():
+        return "Invalid input. Amount and day must be numeric.", 400
+    
+    functionality.remove_repeating_income(amount, description, day)
+    functionality.save_repeating_incomes_to_json()
+    return redirect(url_for('income_expenses'))
+
+@app.route('/remove_income', methods=['POST'])
+def remove_income():
+    """Remove an income entry."""
+    amount = request.form['amount']
+    description = request.form['description']
+    functionality.remove_income(amount, description)
+    functionality.save_incomes_to_json()
+    return redirect(url_for('income_expenses'))
+
+@app.route('/remove_expense', methods=['POST'])
+def remove_expense():
+    """Remove an expense entry."""
+    amount = request.form['amount']
+    description = request.form['description']
+    functionality.remove_expense(amount, description)
+    functionality.save_expenses_to_json()
+    return redirect(url_for('income_expenses'))
+
+@app.route('/subscriptions')
+def subscriptions():
+    """Render the subscriptions page with the current subscriptions."""
+    return render_template('subscriptions.html',
+                            message="Subscription added successfully!",
+                            subscriptions=functionality.subscriptions) # Pass the subscriptions data to the template
+
+@app.route('/add_subscriptions', methods=['POST'])
+def add_subscriptions():
+    """Add a subscription."""
+    amount = request.form['amount']
+    description = request.form['description'].lower().strip()
+
+    if not amount.isdigit():
+        return "Invalid input. Amount must be numeric.", 400
+    
+    functionality.save_to_subscription_dict(amount, description)
+    functionality.save_subscriptions_to_json()
+
+    return redirect(url_for('subscriptions'))
+
+@app.route('/remove_subscription', methods=['POST'])
+def remove_subscription():
+    amount = request.form['amount']
+    description = request.form['description'].lower().strip()
+
+    if not amount.isdigit():
+        return "Invalid input. Amount must be numeric.", 400
+    
+    functionality.remove_subscription(amount, description)
+    functionality.save_subscriptions_to_json()
+    
+    return redirect(url_for('subscriptions'))
+
+
+
 
 if __name__ == '__main__':
     # Run the Flask application

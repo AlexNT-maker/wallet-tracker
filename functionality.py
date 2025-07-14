@@ -18,6 +18,7 @@ def save_to_repeating_dict(amount, description, day_of_month):
     """Save the current state of the repeating incomes to a dictionary."""
     repeating_incomes.append({"Income": int(amount), "Description": description, "Day": day_of_month})
     print(f"The repeating income of {amount}$ added with description: {description} on day {day_of_month}")
+    save_repeating_incomes_to_json()  # Save to JSON after adding a new repeating income
 
 def save_to_expense_dict(amount, description):
     """Save the current state of the expenses to a dictionary."""
@@ -44,21 +45,25 @@ def add_income():
     save_to_dict(amount,description)
 
 
-def remove_income():
-    """Remove an existing income entry."""
-    income_description = input("Enter the description of the income to remove: ").lower().strip()
-    amount =(input("Enter the amount of the income to remove: " + "$"))
-    if not amount.isdigit():
-        print("Invalid income amount. Please enter a numeric value.")
+def remove_income(amount, description):
+    """Remove an income entry using passed data."""
+    try:
+        amount = int(amount)
+    except ValueError:
+        print("Invalid income amount.")
         return
-    amount = int(amount)
-    # Check if the income exists
+
+    description = description.lower().strip()
+
     for entry in incomes:
-        if entry["Income"] == amount and entry["Description"] == income_description:
+        if entry["Income"] == amount and entry["Description"].lower().strip() == description:
             incomes.remove(entry)
-            print(f"Removed income: {amount}$ with description: {income_description}")
+            print(f"Removed income: {amount}$ with description: {description}")
             return
-    print(f"No income found with description: {income_description} and amount: {amount}$")
+    
+    print("No matching income found.")
+
+
 
 
 def repeat_income():
@@ -83,6 +88,23 @@ def check_and_add_repeating_income():
             save_to_repeating_dict(entry["Income"], entry["Description"], entry["Day"])
             return
        
+def remove_repeating_income(amount, description, day):
+    """Remove an existing repeating income entry."""
+    try:
+        amount= int(amount)
+        day = int(day)
+    except ValueError:
+        print("Invalid input. Amount and day must be numeric.")
+        return
+    
+    for entry in repeating_incomes:
+        if (entry["Income"] == amount and entry["Description"].lower().strip() == description.lower().strip() and 
+        entry["Day"] == day):
+            # Remove the entry from the repeating incomes list
+            repeating_incomes.remove(entry)
+            print(f"Removed repeating income: {amount}$ with description: {description} on day {day}")
+            return
+    print(f"No repeating income found with description: {description}, amount: {amount}$ and day: {day}.")
 
 def check_if_repeating_income():
     """check if there are any repeating incomes for today"""
@@ -133,22 +155,20 @@ def add_expense():
         return
     save_to_expense_dict(amount, description)
 
-def remove_expense(): 
-    """Remove an existing expense entry."""  
-    expense_description = input("Enter the description of the expense to remove: ").lower().strip()
-    amount = input("Enter the amount of the expense to remove: " + "$")
-    if not amount.isdigit():
-        print("Invalid expense amount. Please enter a numeric value.")
+def remove_expense(amount, description):
+    """Remove an expense entry using passed data."""
+    try:
+        amount = int(amount)
+    except ValueError:
+        print("Invalid expense amount.")
         return
-    amount = int(amount)
-    # Check if the expense exists
-    for entry in expenses:
-        if entry["Expense"] == amount and entry["Description"] == expense_description:
-            expenses.remove(entry)
-            print(f"Removed expense: {amount}$ with description: {expense_description}")
-            return
-    print(f"No expense found with description: {expense_description} and amount: {amount}$")
 
+    for entry in expenses:
+        if entry["Expense"] == amount and entry["Description"].lower().strip() == description.lower().strip():
+            expenses.remove(entry)
+            print(f"Removed expense: {amount}$ with description: {description}")
+            return
+    print("No matching expense found.")
 
 def add_subscription():
     """Add a new subscription."""
@@ -159,8 +179,23 @@ def add_subscription():
         return
     save_to_subscription_dict(amount, description)
 
-def remove_subscription():
-    """Remove an existing subscription."""
+def remove_subscription(amount, description):
+    """Remove an existing subscription using passed data."""
+    try:
+        amount = int(amount)
+    except ValueError:
+        print("Invalid subscription amount.")
+        return
+
+    for entry in subscriptions:
+        if entry["Subscription"] == amount and entry["Description"].lower().strip() == description.lower().strip():
+            subscriptions.remove(entry)
+            print(f"Removed subscription: {amount}$ with description: {description}")
+            return
+    print("No matching subscription found.")
+
+def remove_subscription_testing_function():
+    """Remove an existing subscription, only for console use."""
     subscription_description = input("Enter the description of the subscription to remove: ").lower().strip()
     amount = input("Enter the amount of the subscription to remove: " + "$")
     if not amount.isdigit():
@@ -329,3 +364,61 @@ def load_personal_details_from_json():
         print("Personal details loaded from personal_details.json")
     except FileNotFoundError:
         print("No personal details file found. Starting with an empty personal details dictionary.")
+
+
+def remove_income_testing_function():
+    """Remove an existing income entry, only for console use."""
+    income_description = input("Enter the description of the income to remove: ").lower().strip()
+    amount =(input("Enter the amount of the income to remove: " + "$"))
+    if not amount.isdigit():
+        print("Invalid income amount. Please enter a numeric value.")
+        return
+    amount = int(amount)
+    # Check if the income exists
+    for entry in incomes:
+        if entry["Income"] == amount and entry["Description"] == income_description:
+            incomes.remove(entry)
+            print(f"Removed income: {amount}$ with description: {income_description}")
+            return
+    print(f"No income found with description: {income_description} and amount: {amount}$")
+
+
+def remove_expense_testing_function(): 
+    """Remove an existing expense entry, only for console use."""  
+    expense_description = input("Enter the description of the expense to remove: ").lower().strip()
+    amount = input("Enter the amount of the expense to remove: " + "$")
+    if not amount.isdigit():
+        print("Invalid expense amount. Please enter a numeric value.")
+        return
+    amount = int(amount)
+    # Check if the expense exists
+    for entry in expenses:
+        if entry["Expense"] == amount and entry["Description"] == expense_description:
+            expenses.remove(entry)
+            print(f"Removed expense: {amount}$ with description: {expense_description}")
+            return
+    print(f"No expense found with description: {expense_description} and amount: {amount}$")
+
+
+def remove_repeating_income_testing_function():
+    """Remove an existing repeating income entry, only for console use."""
+    repeating_income_description = input("Enter the description of the repeating income to remove: ").lower().strip()
+    amount = input("Enter the amount of the repeating income to remove: " + "$")
+    if not amount.isdigit():
+        print("Invalid repeating income amount. Please enter a numeric value.")
+        return
+    amount = int(amount)
+    day = input("Enter the day of the month for the repeating income to remove: ")
+    if not day.isdigit():
+        print("Invalid day. Please enter a numeric value.")
+        return
+    day = int(day)
+    
+    # Check if the repeating income exists
+    for entry in repeating_incomes:
+        if (entry["Income"] == amount and entry["Description"].lower().strip() == repeating_income_description.lower().strip() and 
+        entry["Day"] == day):
+            repeating_incomes.remove(entry)
+            print(f"Removed repeating income: {amount}$ with description: {repeating_income_description} on day {day}")
+            return
+    print(f"No repeating income found with description: {repeating_income_description}, amount: {amount}$ and day: {day}.")
