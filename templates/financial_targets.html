@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Targets</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="dashboard-page">
+<nav class="navbar">
+    <ul>
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
+        <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
+        <li><a href="{{ url_for('financial_targets') }}">Financial Goals</a></li>
+        <li><a href="#">Wallet Details</a></li>
+    </ul>
+</nav>
+<div class="dashboard-container">
+    <h1>Financial Targets</h1>
+    {% if request.args.get('message') %}
+        <div class="message">{{ request.args.get('message') }}</div>
+    {% endif %}
+
+    <p>When you have a look with your goals, is more possible to reach them.<br>
+        Use this section for better results. </p>
+    
+        <div class="form-section">
+        <h2>Set a New Financial Target</h2>
+        <form method="POST" action="{{ url_for('add_target') }}">
+            <input type="text" name="target_amount" placeholder="Enter target amount ($)" required>
+            <input type="text" name="description" placeholder="Enter description" required>
+            <button type="submit">Add Goal</button>
+         </form>
+    </div>
+    </div>
+
+    <div class="form-section">
+        <h2>Remove Financial Target</h2>
+        <form method="POST" action="{{ url_for('remove_target') }}">
+            <input type="text" name="target_amount" placeholder="Enter target amount ($)" required>
+            <input type="text" name="description" placeholder="Enter description" required>
+            <button type="submit">Remove Goal</button>
+        </form>
+
+    <div class=" dashboard-container ">
+        <h2> Active goals </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Target Amount ($)</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for t in targets %}
+                <tr>
+                    <td>{{ t.Target }}</td>
+                    <td>{{ t.Description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</body>
+</html>

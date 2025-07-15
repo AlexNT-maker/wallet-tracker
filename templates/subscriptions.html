@@ -14,12 +14,15 @@
         <li><a href="{{ url_for('dashboard') }}">Home</a></li>
         <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
         <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
-        <li><a href="#">Financial Goals</a></li>
+        <li><a href="{{ url_for('financial_targets') }}">Financial Goals</a></li>
         <li><a href="#">Wallet Details</a></li>
     </ul>
 </nav>
 <div class="dashboard-container">
     <h1>Your Subscriptions</h1>
+     {% if request.args.get('message') %}
+        <div class="subscription-message">{{ request.args.get('message') }}</div>
+    {% endif %}
     <p> Here you will be able to manage your subscriptions</p>
     
 
@@ -29,11 +32,8 @@
     <input type="text" name="amount" placeholder="Enter amount" required>
     <input type="text" name="description" placeholder="Enter description" required>
     <button type="submit">Add Subscription</button>
-    {% if message %}
-        <div class="subscription-message">
-            {{ message }}
-        </div>
-    {% endif %}
+  
+
     </form>
 </div>
 

@@ -211,8 +211,8 @@ def remove_subscription_testing_function():
     print(f"No subscription found with description: {subscription_description} and amount: {amount}$")
 
 
-def add_target():
-    """Add a new financial target."""
+def add_target_testing_function():
+    """Add a new financial target, for terminal use."""
     target_amount = input("Enter the target amount: " + "$")
     description = input("Enter the target description: ").lower().strip()
     if not target_amount.isdigit():
@@ -222,8 +222,8 @@ def add_target():
     print(f"Financial target of {target_amount}$ added with description: {description}")
 
 
-def remove_target():
-    """Remove an existing financial target."""
+def remove_target_testing_function():
+    """Remove an existing financial target, for terminal use."""
     target_description = input("Enter the description of the target to remove: ").lower().strip()
     target_amount = input("Enter the amount of the target to remove: " + "$")
     if not target_amount.isdigit():
