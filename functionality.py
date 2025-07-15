@@ -116,8 +116,8 @@ def check_if_repeating_income():
     # If no repeating income found for today
     print("No repeating income found for today.")
 
-def wallet_details():
-    """Display the details of the wallet."""
+def wallet_details_testing_function():
+    """Display the details of the wallet, for terminal use."""
     personal_details["Wallet Name"] = input("Enter your wallet name: ").lower().strip()
     personal_details["Name"] = input("Enter your name: ").lower().strip()
     personal_details["Email"] = input("Enter your email: ").lower().strip()
@@ -131,8 +131,8 @@ def wallet_details():
 
 
 
-def edit_wallet_details():
-    """Edit the details of a wallet."""
+def edit_wallet_details_testing_function():
+    """Edit the details of a wallet, for terminal use."""
     print("Current Wallet Details:")
     for key, value in personal_details.items():
         print(f"{key}: {value}")
@@ -146,8 +146,8 @@ def edit_wallet_details():
     else:
         print("Invalid field. Please try again.")
 
-def add_expense():
-    """Add a new expense entry."""    
+def add_expense_testing_function():
+    """Add a new expense entry, for terminal use."""    
     amount=input("Enter expense amount: " + "$")
     description=input("Enter expense description: ").lower().strip()
     if not amount.isdigit():
@@ -170,8 +170,8 @@ def remove_expense(amount, description):
             return
     print("No matching expense found.")
 
-def add_subscription():
-    """Add a new subscription."""
+def add_subscription_testing_function():
+    """Add a new subscription, for terminal use."""
     amount = input("Enter subscription amount: " + "$")
     description = input("Enter subscription description: ").lower().strip()
     if not amount.isdigit():

@@ -276,3 +276,34 @@ tr:hover {
     color: #ffcc00;
     margin-top: 10px;
 }
+
+body.details-page {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.wallet-message {
+    color: #2ecc71;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.typewriter p {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #ecf0f1;
+    width: 0;
+    animation: typing 2s steps(40, end) forwards;
+}
+
+.typewriter p:nth-child(2) { animation-delay: 0.5s; }
+.typewriter p:nth-child(3) { animation-delay: 1s; }
+.typewriter p:nth-child(4) { animation-delay: 1.5s; }
+.typewriter p:nth-child(5) { animation-delay: 2s; }
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}

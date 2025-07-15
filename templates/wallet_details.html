@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body class=" details-page">
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
+            <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
+            <li><a href="{{ url_for('financial_targets') }}">Financial Goals</a></li>
+            <li><a href="{{ url_for('wallet_details') }}">My Wallet</a></li>
+        </ul>
+        </nav>
+
+        <div class="dashboard-container">
+            <h1>My Wallet Details</h1>
+            {% if request.args.get('message') %}
+                <div class="wallet-message">{{ request.args.get('message') }}</div>
+            {% endif %}
+  
+{% if not personal_details %} 
+             
+<form method=" POST" action="{{ url_for('edit_wallet_details') }}" class="form-section"> 
+    <input type="text" name="wallet_name" placeholder="Enter wallet name" required>
+    <input type="text" name="name" placeholder="Enter your name" required>
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <input type="text" name="phone" placeholder="Enter your phone number">
+    <input type="text" name="job" placeholder="Enter your job title">
+    <button type="submit">Save Details</button>
+</form>
+
+{% else %}
+<div class="typewriter">
+    <p><strong>Wallet Name:</strong> {{personal_details['Wallet Name']}}</p>
+    <p><strong>Name:</strong> {{personal_details['Name']}}</p>
+    <p><strong>Email:</strong> {{personal_details['Email']}}</p>
+    <p><strong>Phone:</strong> {{personal_details['Phone']}}</p>
+    <p><strong>Job:</strong> {{personal_details['Job']}}</p>
+</div>
+
+<form method="POST" action="{{ url_for('edit_wallet_details') }}" class="form-section">
+    <input type="text" name="Wallet_name" placeholder="Update wallet name">
+    <input type="text" name="Name" placeholder="Update your name">
+    <input type="email" name="Email" placeholder="Update your email">
+    <input type="text" name="Phone" placeholder="Update your phone number">
+    <input type="text" name="Job" placeholder="Update your job title">
+    <button type="submit">Update Details</button>
+</form>
+{% endif %}
+            </div>
+            
+    </body>
+</html>

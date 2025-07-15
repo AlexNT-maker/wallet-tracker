@@ -10,11 +10,11 @@
 <body class="dashboard-page">
     <nav class="navbar">
         <ul>
-            <li> <a href="{{url_for('dashboard')}}">Home</a></li>
-            <li><a href="{{url_for('income_expenses')}}">Income/Expenses</a></li>
-             <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
+            <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
             <li><a href="{{ url_for('financial_targets') }}">Financial Goals</a></li>
-            <li><a href="#">Wallet Details</a></li>
+            <li><a href="{{ url_for('wallet_details') }}">My Wallet</a></li>
         </ul>
     </nav>
     <div class="dashboard-container">

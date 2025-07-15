@@ -179,10 +179,50 @@ def remove_target():
             functionality.save_targets_to_json()
             break  # Stop after removing the matching entry
 
-    functionality.save_targets_to_json()
     return redirect(url_for('financial_targets', message="Target removed successfully!"))
     
 
+@app.route('/wallet_details', methods=['GET', 'POST'])
+def wallet_details():
+    """Display and edit the personal information page."""
+    if request.method == 'POST':
+        if functionality.personal_details:
+            # If personal details already exist, redirect with message
+            return redirect(url_for('wallet_details', message="Wallet details already submitted. Use edit to change."))
+
+        # Collect data from form
+        functionality.personal_details["Wallet Name"] = request.form["wallet_name"].lower().strip()
+        functionality.personal_details["Name"] = request.form["name"].lower().strip()
+        functionality.personal_details["Email"] = request.form["email"].lower().strip()
+        functionality.personal_details["Phone"] = request.form["phone"].strip()
+        functionality.personal_details["Job"] = request.form["job"].lower().strip()
+
+        if not functionality.personal_details["Phone"].isdigit():
+            return "Invalid phone number. Please enter a numeric value.", 400
+
+        if not functionality.personal_details["Wallet Name"] or not functionality.personal_details["Name"] or not functionality.personal_details["Email"]:
+            return "Please fill in all required fields.", 400
+
+        functionality.save_personal_details_to_json()
+        return redirect(url_for('wallet_details', message="Wallet details saved successfully!"))
+
+    # This runs only on GET
+    message = request.args.get('message')
+    return render_template('wallet_details.html', personal_details=functionality.personal_details, message=message)
+
+        
+
+@app.route('/edit_wallet_details', methods=['POST', 'GET'])
+def edit_wallet_details():
+    """ Edit the existing wallet details. """
+    for key in functionality.personal_details:
+        if request.form.get(key): # Check if the form has a value for the key
+            # Update the personal details with the new values from the form
+            functionality.personal_details[key] = request.form[key].strip().lower()
+    # Save the updated personal details to JSON
+
+    functionality.save_personal_details_to_json()
+    return redirect(url_for('wallet_details', message="Wallet details updated successfully!"))
 
 
 
