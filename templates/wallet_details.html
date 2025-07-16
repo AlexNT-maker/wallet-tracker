@@ -9,7 +9,7 @@
     </head>
     <body class=" details-page">
 
-    <nav class="navbar">
+    <nav class="navbar-2">
         <ul>
             <li><a href="{{ url_for('dashboard') }}">Home</a></li>
             <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
@@ -27,7 +27,7 @@
   
 {% if not personal_details %} 
              
-<form method=" POST" action="{{ url_for('edit_wallet_details') }}" class="form-section"> 
+<form method="POST" action="{{ url_for('wallet_details') }}" class="form-section"> 
     <input type="text" name="wallet_name" placeholder="Enter wallet name" required>
     <input type="text" name="name" placeholder="Enter your name" required>
     <input type="email" name="email" placeholder="Enter your email" required>
@@ -46,11 +46,11 @@
 </div>
 
 <form method="POST" action="{{ url_for('edit_wallet_details') }}" class="form-section">
-    <input type="text" name="Wallet_name" placeholder="Update wallet name">
-    <input type="text" name="Name" placeholder="Update your name">
-    <input type="email" name="Email" placeholder="Update your email">
-    <input type="text" name="Phone" placeholder="Update your phone number">
-    <input type="text" name="Job" placeholder="Update your job title">
+    <input type="text" name="wallet_name" placeholder="Update wallet name">
+    <input type="text" name="name" placeholder="Update your name">
+    <input type="email" name="email" placeholder="Update your email">
+    <input type="text" name="phone" placeholder="Update your phone number">
+    <input type="text" name="job" placeholder="Update your job title">
     <button type="submit">Update Details</button>
 </form>
 {% endif %}

@@ -357,13 +357,21 @@ def load_repeating_incomes_from_json():
 
 def load_personal_details_from_json():
     """Load personal details from a JSON file."""
+    global personal_details
     try:
         with open('personal_details.json', 'r') as file:
-            global personal_details
-            personal_details = json.load(file)
+            data = json.load(file)
+            if isinstance(data, dict):
+                personal_details = data
+            else:
+                personal_details = {}
         print("Personal details loaded from personal_details.json")
     except FileNotFoundError:
         print("No personal details file found. Starting with an empty personal details dictionary.")
+        personal_details = {}
+        save_personal_details_to_json()  # Create an empty file if it doesn't exist
+
+
 
 
 def remove_income_testing_function():

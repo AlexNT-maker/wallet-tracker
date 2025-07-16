@@ -16,14 +16,14 @@
         <li><a href="{{ url_for('income_expenses') }}">Income/Expenses</a></li>
         <li><a href="{{ url_for('subscriptions') }}">Subscriptions</a></li>
         <li><a href="{{ url_for('financial_targets') }}">Financial Goals</a></li>
-        <li><a href="#">Wallet Details</a></li>
+        <li><a href="{{ url_for('wallet_details') }}">My Wallet</a></li>
     </ul>
 </nav>
 
         <div class="dashboard-container">
             <h1>Track your finances</h1>
             {% if request.args.get('message') %}
-    <div class="subscription-message">{{ request.args.get('message') }}</div>
+    <div class="message">{{ request.args.get('message') }}</div>
 {% endif %}
 
 

@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 import functionality
-from charts import generate_pie_chart
+from charts import create_pie_chart as generate_pie_chart
 
 # Create a Flask application instance
 app = Flask(__name__)
+
+functionality.load_incomes_from_json()  # Load incomes from JSON file
+functionality.load_expenses_from_json()  # Load expenses from JSON file
+functionality.load_repeating_incomes_from_json()  # Load repeating incomes from JSON file
+functionality.load_subscriptions_from_json()  # Load subscriptions from JSON file
+functionality.load_personal_details_from_json()  # Load financial targets from JSON file
+
 
 @app.route('/')
 def home():
@@ -212,17 +219,19 @@ def wallet_details():
 
         
 
-@app.route('/edit_wallet_details', methods=['POST', 'GET'])
+@app.route('/edit_wallet_details', methods=['POST'])
 def edit_wallet_details():
     """ Edit the existing wallet details. """
-    for key in functionality.personal_details:
-        if request.form.get(key): # Check if the form has a value for the key
-            # Update the personal details with the new values from the form
-            functionality.personal_details[key] = request.form[key].strip().lower()
-    # Save the updated personal details to JSON
+    keys = ["Wallet Name", "Name", "Email", "Phone", "Job"]
+    for field in keys:
+        html_field = field.lower().replace(" ", "_")
+        value = request.form.get(html_field)
+        if value:  #only update if the field is provided
+            functionality.personal_details[field] = value.strip().lower()
 
     functionality.save_personal_details_to_json()
     return redirect(url_for('wallet_details', message="Wallet details updated successfully!"))
+
 
 
 
